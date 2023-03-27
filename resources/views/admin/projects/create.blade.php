@@ -50,8 +50,26 @@
                                 <option value="{{ $type->id }}" {{ old('type_id') ==  $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
                             @endforeach
                         </select>
+                        <div class="mt-4">
+                            <label class="form-label d-block mb-2">
+                                <strong>Technology</strong> 
+                            </label>
+                            @foreach ($technologies as $technology)
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" 
+                                    type="checkbox"
+                                    name="technologies[]"
+                                    {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }} 
+                                    id="Checkbox-{{ $technology->id }}" 
+                                    value="{{ $technology->id }}">
+                                    <label class="form-check-label" for="Checkbox-{{ $technology->id }}">
+                                        {{ $technology->name }}
+                                    </label>
+                                </div>
+                            @endforeach   
+                        </div>          
                         <div>
-                            <button class="btn btn-success mt-4" type="submit">
+                            <button class="btn btn-success mt-5" type="submit">
                                 Add
                             </button>
                         </div>

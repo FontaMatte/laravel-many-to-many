@@ -29,6 +29,16 @@
                         No Type
                     @endif
                 </div>
+                <div>
+                    <strong>Technologies:</strong> 
+                    {{-- @if ($project->technologies())
+                        <a href="{{ route('admin.technologies.show', $project->technologies()->id) }}">
+                            {{ $project->technologies()->name }}
+                        </a>
+                    @else
+                        No Technology
+                    @endif --}}
+                 </div>
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-success mt-4">
                     Back
                 </a>

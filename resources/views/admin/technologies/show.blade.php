@@ -6,14 +6,14 @@
         <div class="col">
             @include('partials.success')
             <h2 class="mb-3">
-                Type: {{ $type->name }}
+                Type: {{ $technology->name }}
             </h2>
             <h4>
-                Linked Projects ({{ $type->projects()->count() }})
+                Linked Projects ({{ $technology->projects()->count() }})
             </h4>
-            @if ($type->projects()->count() > 0)
+            @if ($technology->projects()->count() > 0)
                 <ul>
-                    @foreach ($type->projects as $project)
+                    @foreach ($technology->projects as $project)
                     <li>
                         <a href="{{ route('admin.projects.show', $project->id) }}">
                             {{ $project->title }}
@@ -27,7 +27,7 @@
                 </h6>
             @endif
             
-            <a href="{{ route('admin.types.index') }}" class="btn btn-success mt-4">
+            <a href="{{ route('admin.technologies.index') }}" class="btn btn-success mt-4">
                 Back
             </a>
         </div>

@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Validation\Rule;
+
+// Models
 use App\Models\Project;
 use App\Models\Type;
-use Illuminate\Validation\Rule;
+use App\Models\Technology;
 
 // Helpers
 use Illuminate\Support\Facades\Storage;
@@ -38,8 +41,9 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -58,6 +62,13 @@ class ProjectController extends Controller
         }
         
         $newProject = Project::create($data);
+
+        if (array_key_exists('technologies', $data)) {
+            foreach ($data['technologies'] as $technologyId) {
+                $newProject->technologies()->attach($technologyId);
+            }
+        }
+        
 
         // Mail::to('matteo@classe84.com')->send(new NewProject($newProject));
 
@@ -84,8 +95,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.edit', compact('project','types'));
+        return view('admin.projects.edit', compact('project','types', 'technologies'));
     }
 
     /**
@@ -117,6 +129,19 @@ class ProjectController extends Controller
         }
 
         $project->update($data);
+
+        if (array_key_exists('technologies', $data)) {
+            // foreach ($project->technologies as $technology) {
+            //     $project->technologies()->detach($technology);
+            // }
+
+            // foreach ($data['technologies'] as $technologyId) {
+            //     $project->technologies()->attach($technologyId);
+            // }
+
+            // OPPURE
+            $project->technologies()->sync($data['technologies']);
+        }
 
         return redirect()->route('admin.projects.show', $project->id)->with('success', 'Project successfully updated');
     }

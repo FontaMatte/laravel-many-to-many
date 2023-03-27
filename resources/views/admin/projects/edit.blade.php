@@ -5,7 +5,7 @@
         <div class="row justify-content-center mb-4">
             <div class="col">
                 <h2>
-                    New Repository
+                    Update Repository
                 </h2>
             </div>
             @include('partials.errors')
@@ -57,6 +57,28 @@
                             @endforeach
                         </select>
                         <div>
+                            <div class="mt-4">
+                                <label class="form-label d-block mb-2">
+                                    <strong>Technology</strong> 
+                                </label>
+                                @foreach ($technologies as $technology)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" 
+                                        type="checkbox"
+                                        name="technologies[]"
+                                        @if (old('technologies') && is_array(old('technologies')) && count(old('technologies')) > 0)
+                                            {{ in_array($technology->id, old('technologies')) ? 'checked' : '' }} 
+                                        @elseif ($project->technologies->contains($technology))
+                                            checked
+                                        @endif                                  
+                                        id="Checkbox-{{ $technology->id }}" 
+                                        value="{{ $technology->id }}">
+                                        <label class="form-check-label" for="Checkbox-{{ $technology->id }}">
+                                            {{ $technology->name }}
+                                        </label>
+                                    </div>
+                                @endforeach   
+                            </div>          
                             <button class="btn btn-success mt-4" type="submit">
                                 Update
                             </button>

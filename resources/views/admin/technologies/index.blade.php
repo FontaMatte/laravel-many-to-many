@@ -5,10 +5,10 @@
     <div class="row justify-content-center mb-4">
         <div class="col">
             <h1 class="mb-3">
-                Types
+                Technologies
             </h1>
-            <a href="{{ route('admin.types.create') }}" class="btn btn-success">
-                New Type
+            <a href="{{ route('admin.technologies.create') }}" class="btn btn-success">
+                New Technology
             </a>
         </div>
         @if (session('success'))
@@ -23,34 +23,34 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Type</th>
+                    <th scope="col">Technology</th>
                     <th scope="col">#Project</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($types as $type)
+                    @foreach ($technologies as $technology)
                         <tr>
-                            <th scope="row">{{ $type->id }}</th>
-                            <td>{{ $type->name }}</td>
-                            <td>{{ $type->projects()->count() }}</td>
+                            <th scope="row">{{ $technology->id }}</th>
+                            <td>{{ $technology->name }}</td>
+                            <td>{{ $technology->projects()->count() }}</td>
                             <td>
-                                <a href="{{ route('admin.types.show', $type->id) }}" class="btn btn-primary">
+                                <a href="{{ route('admin.technologies.show', $technology->id) }}" class="btn btn-primary">
                                     Details
                                 </a>
-                                <a href="{{ route('admin.types.edit', $type->id) }}" class="btn btn-warning">
+                                <a href="{{ route('admin.technologies.edit', $technology->id) }}" class="btn btn-warning">
                                     Update
                                 </a>
                                     
                                     <!-- Modal -->
-                                <form class="d-inline-block" action="{{  route('admin.types.destroy', $type->id)  }}" method="POST">
+                                <form class="d-inline-block" action="{{  route('admin.technologies.destroy', $technology->id)  }}" method="POST">
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$type->id}}">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$technology->id}}">
                                         Delete
                                     </button>
-                                    <div class="modal fade" id="exampleModal-{{$type->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="exampleModal-{{$technology->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
