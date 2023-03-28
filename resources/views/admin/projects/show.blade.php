@@ -31,13 +31,16 @@
                 </div>
                 <div>
                     <strong>Technologies:</strong> 
-                    {{-- @if ($project->technologies())
-                        <a href="{{ route('admin.technologies.show', $project->technologies()->id) }}">
-                            {{ $project->technologies()->name }}
-                        </a>
+                    @if ($project->technologies->isNotEmpty())
+                        @foreach ($project->technologies as $technology)
+                            <a href="{{ route('admin.technologies.show', $technology->id) }}">
+                                {{ $technology->name }}
+                            </a>
+                            @if (!$loop->last)- @endif  
+                        @endforeach                   
                     @else
                         No Technology
-                    @endif --}}
+                    @endif
                  </div>
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-success mt-4">
                     Back

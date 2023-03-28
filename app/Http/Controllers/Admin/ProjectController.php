@@ -142,6 +142,9 @@ class ProjectController extends Controller
             // OPPURE
             $project->technologies()->sync($data['technologies']);
         }
+        else {
+            $project->technologies()->sync([]);
+        }
 
         return redirect()->route('admin.projects.show', $project->id)->with('success', 'Project successfully updated');
     }
